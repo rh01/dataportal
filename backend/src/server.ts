@@ -46,7 +46,7 @@ import * as xmlparser from 'express-xml-bodyparser'
     app.get('/allsearch', routes.allsearch)
     app.get('/actris/:uuid', async (req: Request, res: Response) => {
       const repo = conn.getRepository(File)
-      repo.findOneOrFail(req.params.uuid, { relations: ['site']})
+      repo.findOneOrFail(req.params.uuid, { relations: ['site'] })
         .then(result => res.send(actrisConverter(result)))
         .catch(_ => res.sendStatus(404))
     })
