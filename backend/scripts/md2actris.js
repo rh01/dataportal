@@ -29,5 +29,5 @@ const actrisConverter = require('../build/actris-converter').default;
         process.stderr.write(`${file.filename}\n${JSON.stringify(response.data, null, 2)}${reset}\n\n`)
       })
   }
-  process.stdout.write(`\nDone!\n`)
+  process.stdout.write('\nDone!\n')
 }())
