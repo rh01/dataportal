@@ -92,7 +92,7 @@ export default function(file: File) {
       'product_type': file.product == CloudnetFileType.MODEL ? 'model' : 'observation', // mandatory ["model", "observation", "fundamental_parameter"]
       'matrix': 'cloud', // mandatory ["cloud", "gas", "particle", "met"]
       'sub_matrix': 'pm10', // mandatory
-      'instrument_type': [(file.level == 2) || (file.type == CloudnetFileType.MODEL) ? 'UNKNOWN' : file.product], // mandatory
+      'instrument_type': [(file.level == 2) || (file.product == CloudnetFileType.MODEL) ? 'UNKNOWN' : file.product], // mandatory
       'program_affiliation': ['ACTRIS'], // mandatory, fixed list ['ACTRIS', 'AMAP', 'AMAP_public','EUSAAR','EMEP','ACTRIS_preliminary','GAW-WDCA','GAW-WDCRG','NOAA-ESRL']
       'legacy_data': false, // mandatory
       'data_level': file.level, // mandatory, fixed list [0, 1, 2, 3]
