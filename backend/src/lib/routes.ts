@@ -18,10 +18,10 @@ import {LatestVisualizationDateResponse} from '../entity/LatestVisualizationDate
 import {SearchFileResponse} from '../entity/SearchFileResponse'
 import {Instrument} from '../entity/Instrument'
 import {ReducedMetadataResponse} from '../entity/ReducedMetadataResponse'
+import {translateFile2Actris} from './actris-api'
 
 
 export class Routes {
-
   constructor(conn: Connection) {
     this.conn = conn
     this.publicDir = config.publicDir
@@ -352,6 +352,19 @@ export class Routes {
       .catch(err => {
         next({ status: 500, errors: err })
       })
+
+  actrisfile: RequestHandler = (req, res, next) => {
+    const qb = this.fileRepo.createQueryBuilder('file')
+      .leftJoinAndSelect('file.site', 'site')
+      .leftJoinAndSelect('file.product', 'product')
+      .where('file.uuid = :uuid', req.params)
+      .getOne()
+      .then(result => {
+        if (result == undefined) throw new Error()
+        res.send(translateFile2Actris(result))
+      })
+      .catch(_err => next({ status: 404, errors: ['No files match this UUID'] }))
+  }
 
     uploadMetadata: RequestHandler = async (req: Request, res: Response, next) => {
       const id = req.params.hash
