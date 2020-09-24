@@ -361,10 +361,10 @@ export class Routes {
       .where('file.uuid = :uuid', req.params)
       .getOne()
       .then(result => {
-        if (result == undefined) throw new Error()
+        if (result == undefined) return next({ status: 404, errors: ['No files match this UUID'] })
         res.send(translateFile2Actris(result))
       })
-      .catch(_err => next({ status: 404, errors: ['No files match this UUID'] }))
+      .catch(errors => next({ status: 500, errors }))
   }
 
     uploadMetadata: RequestHandler = async (req: Request, res: Response, next) => {
