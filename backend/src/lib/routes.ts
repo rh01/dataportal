@@ -357,6 +357,7 @@ export class Routes {
     const qb = this.fileRepo.createQueryBuilder('file')
       .leftJoinAndSelect('file.site', 'site')
       .leftJoinAndSelect('file.product', 'product')
+      .leftJoinAndSelect('product.variables', 'variables')
       .where('file.uuid = :uuid', req.params)
       .getOne()
       .then(result => {

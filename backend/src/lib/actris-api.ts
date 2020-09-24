@@ -70,7 +70,7 @@ export function translateFile2Actris(file: File) {
       'unit_of_measure': 'm above sea level' // optional
     },
     'md_content_information': { // mandatory
-      'attribute_description': ['N/A'], // mandatory, list of parameters
+      'attribute_description': file.product.variables.map(prodVar => prodVar.id), // mandatory, list of parameters
       'content_type': 'physicalMeasurement' // mandatory, fixed list ['image','thematicClassification','physicalMeasurement']
     },
     'md_distribution_information': { // mandatory
