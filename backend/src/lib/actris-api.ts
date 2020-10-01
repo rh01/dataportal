@@ -5,7 +5,7 @@ export function translateFile2Actris(file: File) {
   const site = file.site
   return {
     'md_metadata': { // mandatory
-      'file_identifier': file.pid,
+      'file_identifier': file.pid, // mandatory
       'language': 'en', // mandatory
       'hierarchy_level': 'dataset', // mandatory, fixed list ['attribute','attributeType','collectionHardware','collectionSession','dataset','series','nonGeographicDataset','dimensionGroup','feature','featureType','propertyType','fieldSession','software','service','model','tile']
       'datestamp': file.releasedAt, // mandatory
