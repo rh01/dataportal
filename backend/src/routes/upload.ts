@@ -111,10 +111,15 @@ export class UploadRoutes {
       .catch(err => next({ status: 500, errors: err}))
   }
 
+  private addS3Key(metadata: any[]) {
+    metadata.forEach(function (element) { element.s3Key = element.s3key })
+    return metadata
+  }
+
   listMetadata: RequestHandler = async (req: Request, res: Response, next) => {
     (await this.metadataQueryBuilder(req.query))
       .getMany()
-      .then(uploadedMetadata => res.send(uploadedMetadata))
+      .then(uploadedMetadata => res.send(this.addS3Key(uploadedMetadata)))
       .catch(err => {next({status: 500, errors: err})})
   }
 
