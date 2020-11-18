@@ -101,6 +101,15 @@ export class UploadRoutes {
         : next({ status: 500, errors: `Internal server error: ${err.code}`}))
   }
 
+  updateMetadata: RequestHandler = async (req: Request, res: Response, next) => {
+    this.uploadedMetadataRepo.update({checksum: req.params.checksum}, {...req.body, ...{updatedAt: new Date() }})
+      .then(updatedResults => {
+        if (updatedResults.affected == 0) return next({ status: 404, errors: ['No metadata was found with provided hash']})
+        res.send(updatedResults)
+      })
+      .catch(err => { next({ status: 500, errors: err}) })
+  }
+
   metadata: RequestHandler = async (req: Request, res: Response, next) => {
     const checksum = req.params.checksum
     this.uploadedMetadataRepo.findOne({checksum: checksum}, { relations: ['site', 'instrument', 'model'] })

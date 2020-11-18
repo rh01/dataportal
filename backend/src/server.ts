@@ -143,6 +143,7 @@ import {ModelRoutes} from './routes/model'
   app.put('/files/:uuid', fileRoutes.putFile)
   app.get('/metadata', uploadRoutes.listMetadata)
   app.put('/visualizations/:filename', express.json(), vizRoutes.putVisualization)
+  app.post('/metadata/:checksum', express.json(), uploadRoutes.updateMetadata)
 
   app.use(errorHandler)
 
